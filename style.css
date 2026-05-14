@@ -1,0 +1,297 @@
+<style>
+html,body,.overall-wrapper{
+background:linear-gradient(rgba(0,0,0,.72),rgba(0,0,0,.72)),url('https://789904.myshoptet.com/user/documents/upload/5DAF970C-E167-4F6C-A6F1-0AD1766B7491.png') center top/contain fixed no-repeat!important;
+background-color:#000!important
+}
+
+#content,.content-wrapper,.content-inner,.container,
+.products-block .product,.products-block .p{
+background:transparent!important
+}
+
+#header,.navigation-window,.navigation-in,
+.cart-widget-inner,.popup-widget-inner{
+background:#000!important
+}
+
+h1,h2,h3,h4,p,span,a,
+.cart-widget-inner,.popup-widget-inner,
+.quantity input,.btn.btn-primary{
+color:#fff!important
+}
+
+.btn.btn-primary{background:#c00!important}
+
+.products-block .product,.products-block .p{
+border:none!important;
+box-shadow:none!important
+}
+
+.listSorting,.listSorting_controls,.navigationActions,
+.submenu-arrow,.navigation-close,.menu-helper,
+.menu-trigger,[data-testid="hamburgerMenu"],
+.top-nav-button-login,.top-nav-button-account{
+display:none!important
+}
+
+.navigation-buttons{
+display:flex!important;
+align-items:center;
+gap:6px
+}
+
+.navigation-buttons a{
+width:34px;
+height:34px;
+display:flex!important;
+align-items:center;
+justify-content:center;
+background:#000!important
+}
+
+.navigation-buttons svg,.floating-cart svg{
+fill:#fff!important
+}
+
+.quantity input{
+background:#000!important;
+border:1px solid #333!important
+}
+
+/* PC */
+
+@media(min-width:768px){
+
+.sidebar,.sidebar-inner,.type-category .sidebar{
+display:none!important
+}
+
+.type-category .content-wrapper,
+.type-category .content-inner{
+max-width:1400px!important;
+width:100%!important;
+margin:auto!important;
+padding:20px!important
+}
+
+.products{
+display:grid!important;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:28px!important
+}
+
+.product,.p{
+background:rgba(0,0,0,.55)!important;
+border-radius:18px!important;
+padding:18px!important;
+transition:.2s
+}
+
+.product:hover,.p:hover{
+transform:translateY(-3px);
+background:rgba(0,0,0,.75)!important
+}
+
+.product img,.p img{border-radius:14px!important}
+
+h1{
+font-size:42px!important;
+margin-bottom:30px!important
+}
+}
+
+/* MOBILE */
+
+@media(max-width:767px){
+
+#header{
+position:fixed!important;
+top:0;
+width:100%;
+z-index:9999
+}
+
+#content,.content-wrapper{padding-top:95px!important}
+
+.container.navigation-wrapper,
+.site-name{
+display:flex!important;
+align-items:center!important
+}
+
+.container.navigation-wrapper{
+flex-direction:column!important
+}
+
+.site-name{
+width:100%;
+justify-content:center!important;
+margin:6px 0
+}
+
+.site-name img{max-height:55px!important}
+
+.navigation-buttons{
+width:100%;
+justify-content:flex-end!important;
+padding:5px 10px
+}
+
+.navigation-buttons a[href*="/kosik"]{
+display:none!important
+}
+
+.cart-count:not(:empty)~a[href*="/kosik"]{
+display:flex!important
+}
+
+#navigation{
+width:100%;
+height:auto!important;
+overflow:visible!important
+}
+
+.navigation-in{
+height:auto!important;
+max-height:52px!important;
+overflow:visible!important
+}
+
+#navigation .navigation-in>ul{
+display:flex!important;
+overflow-x:auto!important;
+gap:2px;
+padding:8px;
+margin:0;
+background:#c00!important
+}
+
+#navigation .navigation-in>ul::-webkit-scrollbar{
+display:none
+}
+
+#navigation .navigation-in>ul>li{
+flex:0 0 auto;
+position:relative;
+padding-right:10px!important;
+margin-right:10px!important
+}
+
+#navigation .navigation-in>ul>li:after{
+content:"";
+position:absolute;
+right:0;
+top:50%;
+transform:translateY(-50%);
+width:1px;
+height:16px;
+background:rgba(255,255,255,.25)
+}
+
+#navigation .navigation-in>ul>li:last-child:after{
+display:none
+}
+
+#navigation .navigation-in>ul>li>a{
+display:block;
+padding:6px!important;
+white-space:nowrap;
+font-weight:600;
+color:#fff!important
+}
+
+#navigation .navigation-in ul ul,
+.menu-item-706 ul{
+display:none!important
+}
+
+.header--scrolled .navigation-in,
+.header--sticky .navigation-in,
+.header--hidden .navigation-in{
+max-height:52px!important
+}
+
+/* floating košík */
+
+.floating-cart{
+position:fixed;
+right:12px;
+top:50%;
+transform:translateY(-50%);
+width:58px;
+height:58px;
+border-radius:50%;
+background:#c00;
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:50;
+box-shadow:0 4px 14px rgba(0,0,0,.45);
+opacity:0;
+pointer-events:none;
+transition:.25s
+}
+
+body.cart-has-items .floating-cart{
+opacity:1;
+pointer-events:auto
+}
+
+.floating-cart svg{width:26px}
+
+.floating-cart-count{
+position:absolute;
+top:-5px;
+right:-5px;
+width:22px;
+height:22px;
+border-radius:50%;
+background:#fff;
+color:#000;
+font-size:12px;
+font-weight:700;
+display:flex;
+align-items:center;
+justify-content:center
+}
+
+.products,.products *{
+pointer-events:auto!important;
+position:relative;
+z-index:1
+}
+}
+</style>
+
+<script>
+document.addEventListener("click",e=>{
+const l=e.target.closest('[data-testid="linkWebsiteLogo"]');
+if(l){
+e.preventDefault();
+location.href="https://bistroududka.cz"
+}
+},true);
+
+function checkFloatingCart(){
+const c=document.querySelector('.cart-count'),
+b=document.querySelector('.floating-cart-count');
+
+if(c){
+const v=c.textContent.trim();
+b.textContent=v||0;
+document.body.classList.toggle('cart-has-items',v&&v!=='0')
+}
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+checkFloatingCart();
+setInterval(checkFloatingCart,1000)
+});
+</script>
+
+<a href="/kosik" class="floating-cart">
+<span class="floating-cart-count">0</span>
+<svg viewBox="0 0 24 24">
+<path d="M7 4H3v2h2l3.6 7.59-1.35 2.45A1 1 0 0 0 8.14 18H19v-2H8.53a.25.25 0 0 1-.22-.37L9.1 14h7.45a2 2 0 0 0 1.79-1.11L21.88 6H7.42L6.48 4z"/>
+</svg>
+</a>
