@@ -1,20 +1,20 @@
 document.addEventListener("DOMContentLoaded",()=>{
 
-function initShipping(){
+setInterval(()=>{
 
-const wrap=document.querySelector("#order-shipping-methods");
-if(!wrap)return;
+const methods=document.querySelector("#order-shipping-methods");
+if(!methods)return;
 
 // vlozeni PSC
 if(!document.querySelector("#psc-box")){
 
-const title=wrap.querySelector("h4");
+const shippingBox=methods.querySelector(".shipping-billing-table");
 
-if(title){
+if(shippingBox){
 
-title.insertAdjacentHTML("afterend",`
-<div id="psc-box" style="margin:15px 0">
-<input id="psc" placeholder="Zadejte PSČ pro výpočet dopravy"
+shippingBox.insertAdjacentHTML("afterbegin",`
+<div id="psc-box" style="padding:12px">
+<input id="psc" placeholder="Zadejte PSČ pro automatickou dopravu"
 style="
 width:100%;
 padding:14px;
@@ -24,6 +24,7 @@ border:1px solid #444;
 border-radius:10px;
 font-size:16px;
 box-sizing:border-box;
+margin-bottom:10px;
 ">
 </div>
 `);
@@ -32,21 +33,16 @@ box-sizing:border-box;
 
 }
 
-const zones={
-jaromer:["55101"],
-km5:["55102","55103","55203","55204"],
-km10:["54901","55205","55224","55225","55104"],
-km15:["54701","54932","54941","54401","55221"]
-};
-
-const psc=document.querySelector("#psc")?.value.replace(/\s/g,"");
-
+// VALUE ID
 const osobni=document.querySelector('input[value="63"]');
 const jaromer=document.querySelector('input[value="64"]');
 const km5=document.querySelector('input[value="65"]');
 const km10=document.querySelector('input[value="66"]');
 const km15=document.querySelector('input[value="67"]');
 
+const psc=document.querySelector("#psc")?.value.replace(/\s/g,"");
+
+// vse zamknout
 [jaromer,km5,km10,km15].forEach(el=>{
 
 if(!el)return;
@@ -62,6 +58,7 @@ row.style.opacity=".35";
 
 });
 
+// osobni povolit
 if(osobni){
 
 osobni.disabled=false;
@@ -73,11 +70,18 @@ row.style.pointerEvents="auto";
 row.style.opacity="1";
 }
 
-osobni.checked=true;
-
 }
 
+// bez PSC konec
 if(!psc)return;
+
+// PSC LOGIKA
+const zones={
+jaromer:["55101"],
+km5:["55102","55103","55203","55204"],
+km10:["54901","55205","55224","55225","55104"],
+km15:["54701","54932","54941","54401","55221"]
+};
 
 function enable(el){
 
@@ -100,8 +104,6 @@ else if(zones.km5.includes(psc)) enable(km5);
 else if(zones.km10.includes(psc)) enable(km10);
 else if(zones.km15.includes(psc)) enable(km15);
 
-}
-
-setInterval(initShipping,500);
+},500);
 
 });
