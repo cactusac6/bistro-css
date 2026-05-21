@@ -1,4 +1,4 @@
-<script>
+
 document.addEventListener("DOMContentLoaded",()=>{
 
 const box=document.querySelector("#shipping-methods");
@@ -60,4 +60,3 @@ else if(zones.km15.includes(psc)) enable(km15);
 setInterval(setShip,500);
 
 });
-</script>
