@@ -1,52 +1,52 @@
-document.addEventListener("DOMContentLoaded",()=>{
+function insertPSC(){
 
-setInterval(()=>{
+const delivery=document.querySelector(".co-delivery-method");
 
-// najit dopravy
-const table=document.querySelector(".shipping-billing-table");
-if(!table)return;
+if(!delivery) return;
 
-// vlozit PSC natvrdo
-if(!document.querySelector("#psc-box")){
+if(document.querySelector("#psc-box")) return;
 
 const div=document.createElement("div");
 
 div.id="psc-box";
 
 div.innerHTML=`
-<input id="psc" type="text" placeholder="Zadejte PSČ pro rozvoz"
+<div style="margin:15px 0">
+<input 
+id="psc"
+type="text"
+placeholder="Zadejte PSČ pro automatický rozvoz"
 style="
 width:100%;
 padding:15px;
-margin-bottom:15px;
 background:#111;
 color:#fff;
 border:2px solid #444;
 border-radius:10px;
 font-size:16px;
 box-sizing:border-box;
-">
+"
+>
+</div>
 `;
 
-table.prepend(div);
+delivery.prepend(div);
 
 }
 
-// ID dopravy
-const osobni=document.querySelector('input[value="63"]');
-const jaromer=document.querySelector('input[value="64"]');
-const km10=document.querySelector('input[value="100"]');
-const km5=document.querySelector('input[value="109"]');
-const km15=document.querySelector('input[value="110"]');
+function lockAll(){
 
-// vse zakazat
-[jaromer,km10,km5,km15].forEach(el=>{
+const ids=["64","100","109","110"];
 
-if(!el)return;
+ids.forEach(id=>{
+
+const el=document.querySelector('input[value="'+id+'"]');
+
+if(!el) return;
 
 el.disabled=true;
 
-const row=el.closest(".radio-wrapper");
+const row=el.closest("tr,.co-box,.delivery-option,.radio-wrapper,li,div");
 
 if(row){
 row.style.pointerEvents="none";
@@ -55,12 +55,17 @@ row.style.opacity=".35";
 
 });
 
-// osobni povolit
-if(osobni){
+}
+
+function unlockPersonal(){
+
+const osobni=document.querySelector('input[value="63"]');
+
+if(!osobni) return;
 
 osobni.disabled=false;
 
-const row=osobni.closest(".radio-wrapper");
+const row=osobni.closest("tr,.co-box,.delivery-option,.radio-wrapper,li,div");
 
 if(row){
 row.style.pointerEvents="auto";
@@ -71,50 +76,16 @@ osobni.checked=true;
 
 }
 
-// PSC
-const psc=document.querySelector("#psc")?.value.replace(/\s/g,"");
+function enableShipping(id){
 
-if(!psc)return;
+const el=document.querySelector('input[value="'+id+'"]');
 
-// zony
-const zones={
-
-jaromer:["55101"],
-
-km5:[
-"55102",
-"55103",
-"55203",
-"55204"
-],
-
-km10:[
-"54901",
-"55205",
-"55224",
-"55225",
-"55104"
-],
-
-km15:[
-"54701",
-"54932",
-"54941",
-"54401",
-"55221"
-]
-
-};
-
-// povolit jen jednu dopravu
-function enable(el){
-
-if(!el)return;
+if(!el) return;
 
 el.disabled=false;
 el.checked=true;
 
-const row=el.closest(".radio-wrapper");
+const row=el.closest("tr,.co-box,.delivery-option,.radio-wrapper,li,div");
 
 if(row){
 row.style.pointerEvents="none";
@@ -123,25 +94,63 @@ row.style.opacity="1";
 
 }
 
-// auto vyber
-if(zones.jaromer.includes(psc)){
+function autoShipping(){
 
-enable(jaromer);
+insertPSC();
 
-}else if(zones.km5.includes(psc)){
+lockAll();
 
-enable(km5);
+unlockPersonal();
 
-}else if(zones.km10.includes(psc)){
+const psc=document.querySelector("#psc")?.value.replace(/\s/g,"");
 
-enable(km10);
+if(!psc) return;
 
-}else if(zones.km15.includes(psc)){
+// JAROMER
+if(["55101"].includes(psc)){
 
-enable(km15);
+enableShipping("64");
 
 }
 
-},300);
+// DO 5KM
+else if([
+"55102",
+"55103",
+"55203",
+"55204"
+].includes(psc)){
 
-});
+enableShipping("109");
+
+}
+
+// DO 10KM
+else if([
+"54901",
+"55205",
+"55224",
+"55225",
+"55104"
+].includes(psc)){
+
+enableShipping("100");
+
+}
+
+// DO 15KM
+else if([
+"54701",
+"54932",
+"54941",
+"54401",
+"55221"
+].includes(psc)){
+
+enableShipping("110");
+
+}
+
+}
+
+setInterval(autoShipping,500);
