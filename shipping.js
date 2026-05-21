@@ -2,48 +2,39 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 setInterval(()=>{
 
-const methods=document.querySelector("#order-shipping-methods");
-if(!methods)return;
+const table=document.querySelector(".shipping-billing-table");
+if(!table)return;
 
-// vlozeni PSC
+// PSC BOX
 if(!document.querySelector("#psc-box")){
 
-const shippingBox=methods.querySelector(".shipping-billing-table");
-
-if(shippingBox){
-
-shippingBox.insertAdjacentHTML("afterbegin",`
-<div id="psc-box" style="padding:12px">
-<input id="psc" placeholder="Zadejte PSČ pro automatickou dopravu"
+table.insertAdjacentHTML("afterbegin",`
+<div id="psc-box" style="padding:15px">
+<input id="psc" type="text" placeholder="Zadejte PSČ pro rozvoz"
 style="
 width:100%;
 padding:14px;
 background:#111;
 color:#fff;
-border:1px solid #444;
+border:2px solid #444;
 border-radius:10px;
 font-size:16px;
 box-sizing:border-box;
-margin-bottom:10px;
 ">
 </div>
 `);
 
 }
 
-}
-
-// VALUE ID
+// DOPRAVY
 const osobni=document.querySelector('input[value="63"]');
 const jaromer=document.querySelector('input[value="64"]');
-const km5=document.querySelector('input[value="65"]');
-const km10=document.querySelector('input[value="66"]');
-const km15=document.querySelector('input[value="67"]');
+const km10=document.querySelector('input[value="100"]');
+const km5=document.querySelector('input[value="109"]');
+const km15=document.querySelector('input[value="110"]');
 
-const psc=document.querySelector("#psc")?.value.replace(/\s/g,"");
-
-// vse zamknout
-[jaromer,km5,km10,km15].forEach(el=>{
+// zamknout
+[jaromer,km10,km5,km15].forEach(el=>{
 
 if(!el)return;
 
@@ -72,10 +63,12 @@ row.style.opacity="1";
 
 }
 
-// bez PSC konec
+// PSC
+const psc=document.querySelector("#psc")?.value.replace(/\s/g,"");
+
 if(!psc)return;
 
-// PSC LOGIKA
+// ZONY
 const zones={
 jaromer:["55101"],
 km5:["55102","55103","55203","55204"],
